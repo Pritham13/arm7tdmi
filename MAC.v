@@ -4,7 +4,7 @@ module MAC (
   output reg [31:0] sum_high, sum_low
 );
 
-reg [63:0] sum;
+reg [63:0] sum = 0;
 
 always @(posedge clk or posedge reset)
   begin
@@ -15,7 +15,7 @@ always @(posedge clk or posedge reset)
       end
     else
       begin
-        sum = sum + (a * b);
+        sum = sum + (in1 * in2);
         sum_high <= sum[63:32];
         sum_low <= sum[31:0];
     end
