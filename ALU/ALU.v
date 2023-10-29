@@ -11,7 +11,7 @@ ALU Control lines | Function
         */
 //Note: the control values needs changing
 module ALU(
-    input [31,0] operand_a, operand_b,
+    input [31:0] operand_a, operand_b,
     input [3:0] alu_control,
     output reg [31:0] result,
     output reg zero_flag
@@ -28,6 +28,7 @@ module ALU(
                         result = 1'b1;
                     else
                         result = 1'b0;
+                       end
                 4'b0101: result = operand_a*operand_b;
                 4'b0110: result = operand_a^operand_b;
             endcase

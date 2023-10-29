@@ -1,4 +1,4 @@
-module barrel_shifter_32_multi(
+module barrel_shifter(
     input  [31:0] data,
     input  [4:0] amt,
     input  dir_lr, // 1 rotate left, 0 rotate right
