@@ -29,7 +29,6 @@ module ALU(
                     else
                         result = 1'b0;
                        end
-                4'b0101: result = operand_a*operand_b;
                 4'b0110: result = operand_a^operand_b;
             endcase
             if(alu_control ==0)
