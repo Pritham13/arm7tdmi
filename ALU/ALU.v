@@ -9,7 +9,9 @@ ALU Control lines | Function
         0110    Multiply
         0111    Bitwise-XOR
         */
-//Note: the control values needs changing
+//////////////////////////////////////
+/////Pritham:control values in case statement needs to be changed/////
+///////////////////////////////////////////
 module ALU(
     input [31:0] operand_a, operand_b,
     input [3:0] alu_control,
