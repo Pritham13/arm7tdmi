@@ -1,3 +1,4 @@
+//leaving it as it is as on 29-10-23 for further improvements and discussion 
 module ALU_tb();
     reg [31:0] a,b;
     reg [3:0] ALU_control;
