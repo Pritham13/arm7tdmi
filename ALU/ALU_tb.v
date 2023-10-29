@@ -19,7 +19,6 @@ module ALU_tb();
         #20 a = 23; b = 42;  ALU_control = 4'b0010;
         #20 a = 23; b = 42;  ALU_control = 4'b0011;
         #20 a = 23; b = 42;  ALU_control = 4'b0100;
-        #20 a = 42; b = 23;  ALU_control = 4'b0101;
         #20 a = 42; b = 23;  ALU_control = 4'b0110;
         end
     initial

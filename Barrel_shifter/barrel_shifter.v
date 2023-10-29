@@ -1,3 +1,5 @@
+`timescale 1ns / 10ps
+
 module barrel_shifter(
     input  [31:0] data,
     input  [4:0] amt,
@@ -6,13 +8,15 @@ module barrel_shifter(
 );
     wire [31:0] out_right;
     wire [31:0] out_left;
-
+     reg ROTATE_LEFT = 1'b1;
+     reg ROTATE_RIGHT = 1'b0;
+    
     
     barrel_shifter_32_right bsr(.data(data), .amt(amt) , .out(out_right));
     barrel_shifter_32_left bsl(.data(data), .amt(amt) , .out(out_left));
     
      // if rotate right use rotated output  
-    assign  out = (dir_lr == ROTATE_LEFT) ? out_left:out_right;
+    assign  out = (dir_lr == ROTATE_RIGHT) ? out_left:out_right;
 
 endmodule
 
@@ -20,14 +24,14 @@ endmodule
 module barrel_shifter_32_right(
     input  [31:0] data,
     input  [4:0] amt,
-    output reg [31:0] out
+    output  [31:0] out
 );
 
     wire [31:0] s0;
     wire [31:0] s1;    
     wire [31:0] s2;
     wire [31:0] s3;
-
+    
     //stage 0, shift 0 or 1 bit
     assign s0 =  amt[0]? {data[0], data[31:1]} :data ;
     //stage 1, shift 0 or 2 bits
@@ -45,7 +49,7 @@ endmodule
 module barrel_shifter_32_left(
     input  [31:0] data,
     input  [4:0] amt,
-    output reg [31:0] out
+    output  [31:0] out
 );
 
     wire [31:0] s0;

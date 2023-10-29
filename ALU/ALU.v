@@ -31,7 +31,7 @@ module ALU(
                        end
                 4'b0110: result = operand_a^operand_b;
             endcase
-            if(alu_control ==0)
+            if(result ==0)
                 zero_flag = 1'b1;
             else    
                 zero_flag = 1'b0;
