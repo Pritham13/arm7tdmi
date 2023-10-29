@@ -23,13 +23,42 @@ module ALU(
                 4'b0001: result = operand_a|operand_b;
                 4'b0010: result = operand_a+operand_b;
                 4'b0011: result = operand_a-operand_b;
-                4'b0100: begin
-                    if(operand_a<operand_b)
-                        result = 1'b1;
-                    else
-                        result = 1'b0;
-                       end
-                4'b0110: result = operand_a^operand_b;
+                4'b0101: result = operand_a^operand_b;
+                //not operations have to be checked in case only one input is recieved how will it be processed
+                4'b0101: result = ~operand_a;
+                4'b0101: result = ~operand_b;
+                //less than or greater than
+                4'b0100: 
+                    begin
+                        if(operand_a<operand_b)
+                            result = 1'b1;
+                        else
+                            result = 1'b0;
+                    end
+                //inequality 
+                4'b0101: 
+                    begin
+                        if(operand_a==operand_b)
+                            result = 1'b1;
+                        else
+                            result = 1'b0;
+                    end
+                //less than or eqaual
+                4'b0101: 
+                    begin
+                        if(operand_a<=operand_b)
+                            result = 1'b1;
+                        else
+                            result = 1'b0;
+                    end
+                //greater than or equal
+                4'b0101: 
+                    begin
+                        if(operand_a>=operand_b)
+                            result = 1'b1;
+                        else
+                            result = 1'b0;
+                    end
             endcase
             if(result ==0)
                 zero_flag = 1'b1;
