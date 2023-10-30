@@ -11,6 +11,7 @@ ALU Control lines | Function
         */
 //////////////////////////////////////
 /////Pritham:control values in case statement needs to be changed/////
+//cpsr flags needs to be added (carry,overflow,negative)/////////
 ///////////////////////////////////////////
 module ALU(
     input [31:0] operand_a, operand_b,
