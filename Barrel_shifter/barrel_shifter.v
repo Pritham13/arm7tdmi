@@ -3,20 +3,18 @@
 module barrel_shifter(
     input  [31:0] data,
     input  [4:0] amt,
-    input  dir_lr, // 1 rotate left, 0 rotate right
+    input  dir_lr, // 1 shift left, 0 shift right
     output  [31:0] out
 );
     wire [31:0] out_right;
     wire [31:0] out_left;
-     reg ROTATE_LEFT = 1'b1;
-     reg ROTATE_RIGHT = 1'b0;
-    
+    reg SHIFT_LEFT = 1'b1;
     
     barrel_shifter_32_right bsr(.data(data), .amt(amt) , .out(out_right));
     barrel_shifter_32_left bsl(.data(data), .amt(amt) , .out(out_left));
     
      // if rotate right use rotated output  
-    assign  out = (dir_lr == ROTATE_RIGHT) ? out_left:out_right;
+    assign  out = (dir_lr == SHIFT_LEFT) ? out_left:out_right;
 
 endmodule
 
