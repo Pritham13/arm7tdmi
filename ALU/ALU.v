@@ -24,8 +24,16 @@ reg [32:0] in2_w;
              case(alu_control)
                 `ADD: 
                     result <= operand_a + operand_b;
+                    zero_flag = 0;
+                    carry_flag = 0;
+                    overflow_flag = 0;
+                    negative_flag = 0;
                 `SUB: 
                     result <= operand_a - operand_b;
+                    zero_flag = 0;
+                    carry_flag = 0;
+                    overflow_flag = 0;
+                    negative_flag = 0;
                 `ADDS: 
                     begin
                         in2_w <= operand_a + operand_b;  // Signed arithmetic
@@ -43,10 +51,6 @@ reg [32:0] in2_w;
                             carry_flag = 1;
                         else 
                             carry_flag = 0;
-                        if (result == 0)
-                            zero_flag = 1;
-                        else 
-                            zero_flag = 0;
                     end
                 `SUBS:
                     result <= operand_a - operand_b;
@@ -57,18 +61,34 @@ reg [32:0] in2_w;
 
                 `AND: 
                     result <= operand_a & operand_b;
+                    carry_flag = 0;
+                    overflow_flag = 0;
+                    negative_flag = 0;
                 `OR: 
                     result <= operand_a | operand_b;
+                    carry_flag = 0;
+                    overflow_flag = 0;
+                    negative_flag = 0;
                 `XOR: 
                     result <= operand_a ^ operand_b;
+                    carry_flag = 0;
+                    overflow_flag = 0;
+                    negative_flag = 0;
                 `MVN: 
                     result <= ~operand_a;
+                    carry_flag = 0;
+                    overflow_flag = 0;
+                    negative_flag = 0;
                 `CMP: 
                     if (operand_a < operand_b)
                         result <= 32'd1;
                     else
                         result = 32'd0;
              endcase
+             if (result == 0)
+                zero_flag = 1;
+            else 
+                zero_flag = 0;
         end
 endmodule
 
