@@ -9,7 +9,7 @@
 `define MVN 4'b1010  // 0b1010 represents bitwise NOT
 
 
-module ALU_test(
+module ALU(
     input [31:0] operand_a, operand_b,
     input [3:0] alu_control,
     output reg [31:0] result,

@@ -26,7 +26,7 @@ module ALU_Testbench;
         // Initialize test inputs
         operand_a = 32'hA5A5A5A5;
         operand_b = 32'h5A5A5A5A;
-        alu_control = `ADD; // You can change this to test different operations
+        alu_control = `ADDS; // You can change this to test different operations
         
         // Wait for some time
         #10;
