@@ -23,33 +23,49 @@ reg [32:0] in2_w;
         begin
              case(alu_control)
                 `ADD: 
-                    result = operand_a + operand_b;
+                    result <= operand_a + operand_b;
                 `SUB: 
-                    result = operand_a - operand_b;
+                    result <= operand_a - operand_b;
                 `ADDS: 
                     begin
-                        in2_w = operand_a + operand_b;  // Signed arithmetic
+                        in2_w <= operand_a + operand_b;  // Signed arithmetic
+                        case(in2_w[32:31])
+                            2'b01:
+                                result <= {1'b0, {(32-1){1'b1}}};
+                            2'b10: 
+                                result <= {1'b1, {(32-1){1'b0}}};
+                            default:
+                                result <= in2_w[31:0];
+                        endcase
 
-                        if (in2_w[32:31] == 2'b01)
-                            result = {1'b0, {(32-1){1'b1}}};
-                        else if (in2_w[32:31] == 2'b10)
-                            result = {1'b1, {(32-1){1'b0}}};
-                        else
-                            result = in2_w[31:0];
-
-                        overflow_flag = (in2_w[32:31] == 2'b01 || in2_w[32:31] == 2'b10);
+                        overflow_flag <= (in2_w[32:31] == 2'b01 || in2_w[32:31] == 2'b10);
+                        if (in2_w[32] == 1'b1)
+                            carry_flag = 1;
+                        else 
+                            carry_flag = 0;
+                        if (result == 0)
+                            zero_flag = 1;
+                        else 
+                            zero_flag = 0;
                     end
+                `SUBS:
+                    result <= operand_a - operand_b;
+                    if (result == 0)
+                        zero_flag = 1;
+                    else 
+                        zero_flag = 0;
+
                 `AND: 
-                    result = operand_a & operand_b;
+                    result <= operand_a & operand_b;
                 `OR: 
-                    result = operand_a | operand_b;
+                    result <= operand_a | operand_b;
                 `XOR: 
-                    result = operand_a ^ operand_b;
+                    result <= operand_a ^ operand_b;
                 `MVN: 
-                    result = ~operand_a;
+                    result <= ~operand_a;
                 `CMP: 
                     if (operand_a < operand_b)
-                        result = 32'd1;
+                        result <= 32'd1;
                     else
                         result = 32'd0;
              endcase
