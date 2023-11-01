@@ -1,45 +1,85 @@
 module ALU_Testbench;
 
-    reg [31:0] operand_a;
-    reg [31:0] operand_b;
-    reg [3:0] alu_control;
+  reg [31:0] operand_a;
+  reg [31:0] operand_b;
+  reg [3:0] alu_control;
+  
+  wire [31:0] result;
+  wire zero_flag;
+  wire carry_flag;
+  wire overflow_flag;
+  wire negative_flag;
+
+  // Instantiate the ALU module
+  ALU uut (
+    .operand_a(operand_a),
+    .operand_b(operand_b),
+    .alu_control(alu_control),
+    .result(result),
+    .zero_flag(zero_flag),
+    .carry_flag(carry_flag),
+    .overflow_flag(overflow_flag),
+    .negative_flag(negative_flag)
+  );
+
+  // Initialize signals
+  initial begin
+    $dumpfile("ALU_Testbench.vcd");
+    $dumpvars(0, ALU_Testbench);
+
+    // Test case 1: Addition
+    operand_a = 10;
+    operand_b = 20;
+    alu_control = `ADD;
+    #10;
     
-    wire [31:0] result;
-    wire zero_flag;
-    wire carry_flag;
-    wire overflow_flag;
-    wire negative_flag;
+    // Test case 2: Subtraction
+    operand_a = 30;
+    operand_b = 15;
+    alu_control = `SUB;
+    #10;
 
-    // Instantiate the ALU module
-    ALU uut (
-        .operand_a(operand_a),
-        .operand_b(operand_b),
-        .alu_control(alu_control),
-        .result(result),
-        .zero_flag(zero_flag),
-        .carry_flag(carry_flag),
-        .overflow_flag(overflow_flag),
-        .negative_flag(negative_flag)
-    );
+    // Test case 3: Addition with carry flag
+    operand_a = 10;
+    operand_b = 20;
+    alu_control = `ADDS;
+    #10;
 
-    initial begin
-        // Initialize test inputs
-        operand_a = 32'hA5A5A5A5;
-        operand_b = 32'h5A5A5A5A;
-        alu_control = `ADDS; // You can change this to test different operations
-        
-        // Wait for some time
-        #10;
+    // Test case 4: Subtraction with negative flag
+    operand_a = -10;
+    operand_b = 5;
+    alu_control = `SUBS;
+    #10;
+    
+    // Test case 5: Bitwise AND
+    operand_a = 0b1100;
+    operand_b = 0b1010;
+    alu_control = `AND;
+    #10;
+    
+    // Test case 6: Bitwise OR
+    operand_a = 0b1100;
+    operand_b = 0b1010;
+    alu_control = `OR;
+    #10;
+    
+    // Test case 7: Bitwise XOR
+    operand_a = 0b1100;
+    operand_b = 0b1010;
+    alu_control = `XOR;
+    #10;
+    
+    // Test case 8: Bitwise NOT
+    operand_a = 0b1100;
+    alu_control = `MVN;
+    #10;
+    
+    // Test case 9: Comparison
+    operand_a = 10;
+    operand_b = 20;
+    alu_control = `CMP;
+    #10;
 
-        // Display results
-        $display("ALU Result: %h", result);
-        $display("Zero Flag: %b", zero_flag);
-        $display("Carry Flag: %b", carry_flag);
-        $display("Overflow Flag: %b", overflow_flag);
-        $display("Negative Flag: %b", negative_flag);
-
-        // End the simulation
-        $finish;
-    end
-
+    $finish;
+  end
 endmodule
