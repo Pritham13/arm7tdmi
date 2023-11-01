@@ -3,7 +3,7 @@ module MAC (
   input [31:0] in1, in2,
   output reg [31:0] sum_high, sum_low
 );
-
+//Notes(by Pritham): put flags in o/p use 32 bit single variable , for flags checkout ALU module from my branch
 reg [63:0] sum = 0;
 
 always @(posedge clk or posedge reset)
