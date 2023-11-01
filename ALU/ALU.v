@@ -10,7 +10,7 @@
 
 
 module ALU(
-    input [31:0] operand_a, operand_b,
+    input [31:0] signed operand_a, operand_b,// the signed part needs to be checked
     input [3:0] alu_control,
     output reg [31:0] result,
     output reg zero_flag,
@@ -52,8 +52,8 @@ reg [32:0] acc;
                     end
                 `SUBS:
                     result <= operand_a - operand_b;
-                    if (result == 0)
-                        zero_flag = 1;
+                    overflow_flag = ((operand_a[31] == 0) && (result[31] == 1)) || ((a[31] == 1) && (result[31] == 0));//needs to be checked
+                    negative_flag = (result[31]==1)? 1:0;
 
                 `AND: 
                     result <= operand_a & operand_b;
