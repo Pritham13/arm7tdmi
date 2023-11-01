@@ -18,36 +18,34 @@ module ALU(
     output reg overflow_flag,
     output reg negative_flag
 );
-reg [32:0] in2_w;
+reg [32:0] acc;
     always @(*)
         begin
+            zero_flag = 0;
+            carry_flag = 0;
+            overflow_flag = 0;
+            negative_flag = 0;
              case(alu_control)
                 `ADD: 
                     result <= operand_a + operand_b;
-                    zero_flag = 0;
-                    carry_flag = 0;
-                    overflow_flag = 0;
-                    negative_flag = 0;
+                    
                 `SUB: 
                     result <= operand_a - operand_b;
-                    zero_flag = 0;
-                    carry_flag = 0;
-                    overflow_flag = 0;
-                    negative_flag = 0;
+                   
                 `ADDS: 
                     begin
-                        in2_w <= operand_a + operand_b;  // Signed arithmetic
-                        case(in2_w[32:31])
+                        acc <= operand_a + operand_b;  // Signed arithmetic
+                        case(acc[32:31])
                             2'b01:
                                 result <= {1'b0, {(32-1){1'b1}}};
                             2'b10: 
                                 result <= {1'b1, {(32-1){1'b0}}};
                             default:
-                                result <= in2_w[31:0];
+                                result <= acc[31:0];
                         endcase
 
-                        overflow_flag <= (in2_w[32:31] == 2'b01 || in2_w[32:31] == 2'b10);
-                        if (in2_w[32] == 1'b1)
+                        overflow_flag <= (acc[32:31] == 2'b01 || acc[32:31] == 2'b10);
+                        if (acc[32] == 1'b1)
                             carry_flag = 1;
                         else 
                             carry_flag = 0;
@@ -56,39 +54,29 @@ reg [32:0] in2_w;
                     result <= operand_a - operand_b;
                     if (result == 0)
                         zero_flag = 1;
-                    else 
-                        zero_flag = 0;
 
                 `AND: 
                     result <= operand_a & operand_b;
-                    carry_flag = 0;
-                    overflow_flag = 0;
-                    negative_flag = 0;
+                  
                 `OR: 
                     result <= operand_a | operand_b;
-                    carry_flag = 0;
-                    overflow_flag = 0;
-                    negative_flag = 0;
+                    
                 `XOR: 
                     result <= operand_a ^ operand_b;
-                    carry_flag = 0;
-                    overflow_flag = 0;
-                    negative_flag = 0;
+                 
                 `MVN: 
                     result <= ~operand_a;
-                    carry_flag = 0;
-                    overflow_flag = 0;
-                    negative_flag = 0;
+                    
                 `CMP: 
-                    if (operand_a < operand_b)
+                    if (operand_a = operand_b)
                         result <= 32'd1;
-                    else
-                        result = 32'd0;
+                    else if (operand_a < operand_b )
+                        result = 32'd2;
+                    else if (operand_a > operand_b)
+                        result = 32'b3;
              endcase
              if (result == 0)
                 zero_flag = 1;
-            else 
-                zero_flag = 0;
         end
 endmodule
 
