@@ -1,0 +1,14 @@
+#-----------------------------------------------------------
+# Vivado v2023.2 (64-bit)
+# SW Build 4029153 on Fri Oct 13 20:14:34 MDT 2023
+# IP Build 4028589 on Sat Oct 14 00:45:43 MDT 2023
+# SharedData Build 4025554 on Tue Oct 10 17:18:54 MDT 2023
+# Start of session at: Mon Oct 30 18:16:33 2023
+# Process ID: 20572
+# Current directory: C:/Users/prit4/OneDrive/Desktop/vivado_stuff/PROCESSOR_VIVADO/barrel_shifter_test/barrel_shifter_test.runs/impl_1
+# Command line: vivado.exe -log barrel_shifter.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source barrel_shifter.tcl -notrace
+# Log file: C:/Users/prit4/OneDrive/Desktop/vivado_stuff/PROCESSOR_VIVADO/barrel_shifter_test/barrel_shifter_test.runs/impl_1/barrel_shifter.vdi
+# Journal file: C:/Users/prit4/OneDrive/Desktop/vivado_stuff/PROCESSOR_VIVADO/barrel_shifter_test/barrel_shifter_test.runs/impl_1\vivado.jou
+# Running On: LAPTOP-BP8CQOFU, OS: Windows, CPU Frequency: 3194 MHz, CPU Physical cores: 16, Host memory: 16541 MB
+#-----------------------------------------------------------
+source barrel_shifter.tcl -notrace

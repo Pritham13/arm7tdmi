@@ -1,0 +1,130 @@
+$date
+   Thu Nov  2 11:42:43 2023
+$end
+
+$version
+  2023.2
+  $dumpfile ("ALU_Testbench.vcd") 
+$end
+
+$timescale
+  1ps
+$end
+
+$scope module ALU_Testbench $end
+$var reg 32 ! operand_a [31:0] $end
+$var reg 32 " operand_b [31:0] $end
+$var reg 4 # alu_control [3:0] $end
+$var wire 32 $ result [31:0] $end
+$var wire 1 % zero_flag $end
+$var wire 1 & carry_flag $end
+$var wire 1 ' overflow_flag $end
+$var wire 1 ( negative_flag $end
+$scope module uut $end
+$var wire 32 ) operand_a [31:0] $end
+$var wire 32 * operand_b [31:0] $end
+$var wire 4 + alu_control [3:0] $end
+$var reg 32 , result [31:0] $end
+$var reg 1 - zero_flag $end
+$var reg 1 . carry_flag $end
+$var reg 1 / overflow_flag $end
+$var reg 1 0 negative_flag $end
+$var reg 33 1 acc [32:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+
+#0
+$dumpvars
+b1010 !
+b10100 "
+b0 #
+b11110 $
+0%
+0&
+0'
+0(
+b1010 )
+b10100 *
+b0 +
+b11110 ,
+0-
+0.
+0/
+00
+bx 1
+$end
+
+#10000
+b11110 !
+b1111 "
+b1 #
+b1111 $
+b11110 )
+b1111 *
+b1 +
+b1111 ,
+
+#20000
+b1010 !
+b10100 "
+b10 #
+b11110 $
+b1010 )
+b10100 *
+b10 +
+b11110 ,
+0/
+b11110 1
+
+#30000
+b11111111111111111111111111110110 !
+b101 "
+b11 #
+b11111111111111111111111111110001 $
+1(
+b11111111111111111111111111110110 )
+b101 *
+b11 +
+b11111111111111111111111111110001 ,
+10
+
+#40000
+b1100 !
+b1010 "
+b111 #
+b1000 $
+0(
+b1100 )
+b1010 *
+b111 +
+b1000 ,
+00
+
+#50000
+b1000 #
+b1110 $
+b1000 +
+b1110 ,
+
+#60000
+b1001 #
+b110 $
+b1001 +
+b110 ,
+
+#70000
+b1010 #
+b11111111111111111111111111110011 $
+b1010 +
+b11111111111111111111111111110011 ,
+
+#80000
+b1010 !
+b10100 "
+b100 #
+b10 $
+b1010 )
+b10100 *
+b100 +
+b10 ,

@@ -1,0 +1,47 @@
+$date
+   Tue Oct 31 19:48:39 2023
+$end
+
+$version
+  2023.2
+  $dumpfile ("testbench.vcd") 
+$end
+
+$timescale
+  1ps
+$end
+
+$scope module testbench $end
+$var reg 32 ! A [31:0] $end
+$var reg 32 " B [31:0] $end
+$var wire 32 # Sum [31:0] $end
+$var wire 1 $ Overflow $end
+$scope module dut $end
+$var wire 32 % acc_inc [31:0] $end
+$var wire 32 & acc [31:0] $end
+$var wire 32 # acc_stat [31:0] $end
+$var wire 1 $ overflow $end
+$var wire 33 ' acc_w [32:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+
+#0
+$dumpvars
+b1010 !
+b10100 "
+b11110 #
+0$
+b1010 %
+b10100 &
+b11110 '
+$end
+
+#10000
+b1111111111111111111111111111111 !
+b10 "
+b1111111111111111111111111111111 #
+1$
+b1111111111111111111111111111111 %
+b10 &
+b10000000000000000000000000000001 '

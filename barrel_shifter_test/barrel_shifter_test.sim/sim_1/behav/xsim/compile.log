@@ -1,0 +1,6 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/prit4/OneDrive/Desktop/arm7tdmi/Barrel_shifter/barrel_shifter.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module barrel_shifter
+INFO: [VRFC 10-311] analyzing module barrel_shifter_32_right
+INFO: [VRFC 10-311] analyzing module barrel_shifter_32_left
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/prit4/OneDrive/Desktop/arm7tdmi/Barrel_shifter/barrel_shifter_tb.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module barrel_shifter_tb

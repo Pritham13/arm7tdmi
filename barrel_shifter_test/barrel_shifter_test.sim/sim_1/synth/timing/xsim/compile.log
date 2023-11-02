@@ -1,0 +1,5 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/prit4/OneDrive/Desktop/vivado_stuff/arm7tdmi_testing/barrel_shifter_test/barrel_shifter_test.sim/sim_1/synth/timing/xsim/barrel_shifter_tb_time_synth.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module barrel_shifter
+INFO: [VRFC 10-311] analyzing module glbl
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/prit4/OneDrive/Desktop/arm7tdmi/Barrel_shifter/barrel_shifter_tb.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module barrel_shifter_tb

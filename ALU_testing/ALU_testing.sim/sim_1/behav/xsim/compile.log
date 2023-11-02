@@ -1,0 +1,5 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/prit4/OneDrive/Desktop/arm7tdmi/ALU/ALU.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ALU
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/prit4/OneDrive/Desktop/arm7tdmi/ALU/ALU_tb.v" into library xil_defaultlib
+WARNING: [VRFC 10-9157] macro 'CMP' is redefined [C:/Users/prit4/OneDrive/Desktop/arm7tdmi/ALU/ALU_tb.v:5]
+INFO: [VRFC 10-311] analyzing module ALU_Testbench
