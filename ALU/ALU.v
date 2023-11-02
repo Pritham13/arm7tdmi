@@ -8,9 +8,8 @@
 `define XOR 4'b1001  // 0b1001 represents bitwise XOR
 `define MVN 4'b1010  // 0b1010 represents bitwise NOT
 
-
 module ALU(
-    input signed [31:0]  operand_a, operand_b,// the signed part needs to be checked
+    input signed [31:0] operand_a, operand_b,// the signed part needs to be checked
     input [3:0] alu_control,
     output reg [31:0] result,
     output reg zero_flag,
@@ -18,66 +17,66 @@ module ALU(
     output reg overflow_flag,
     output reg negative_flag
 );
+
 reg [32:0] acc;
-    always @(*)
-        begin
-            zero_flag = 0;
-            carry_flag = 0;
-            overflow_flag = 0;
-            negative_flag = 0;
-             case(alu_control)
-                `ADD: 
-                    result <= operand_a + operand_b;
-                    
-                `SUB: 
-                    result <= operand_a - operand_b;
-                   
-                `ADDS: 
+always @(*)
+    begin
+        zero_flag = 0;
+        carry_flag = 0;
+        overflow_flag = 0;
+        negative_flag = 0;
+         case(alu_control)
+            `ADD: 
+                result <= operand_a + operand_b;
+                
+            `SUB: 
+                result <= operand_a - operand_b;
+               
+            `ADDS: 
+                begin
+                    acc <= operand_a + operand_b;  // Signed arithmetic
+                    case(acc[32:31])
+                        2'b01:
+                            result <= {1'b0, {(32-1){1'b1}}};
+                        2'b10: 
+                            result <= {1'b1, {(32-1){1'b0}}};
+                        default:
+                            result <= acc[31:0];
+                    endcase
+
+                    overflow_flag <= (acc[32:31] == 2'b01 || acc[32:31] == 2'b10);
+                    if (acc[32] == 1'b1)
+                        carry_flag = 1;
+                    else 
+                        carry_flag = 0;
+                end
+            `SUBS:
                     begin
-                        acc <= operand_a + operand_b;  // Signed arithmetic
-                        case(acc[32:31])
-                            2'b01:
-                                result <= {1'b0, {(32-1){1'b1}}};
-                            2'b10: 
-                                result <= {1'b1, {(32-1){1'b0}}};
-                            default:
-                                result <= acc[31:0];
-                        endcase
-
-                        overflow_flag <= (acc[32:31] == 2'b01 || acc[32:31] == 2'b10);
-                        if (acc[32] == 1'b1)
-                            carry_flag = 1;
-                        else 
-                            carry_flag = 0;
+                        result <= operand_a - operand_b;
+                        // overflow_flag = ((operand_a[31] == 1'b0) && (result[31] == 1'b1)) || ((operand_a[31] == 1'b1) && (result[31] == 1'b0)); // Corrected
+                        negative_flag <= (result[31] == 1'b1) ? 1'b1 : 1'b0;
                     end
-                `SUBS:
-                    result <= operand_a - operand_b;
-                    overflow_flag = ((operand_a[31] == 0) && (result[31] == 1)) || ((a[31] == 1) && (result[31] == 0));//needs to be checked
-                    negative_flag = (result[31]==1)? 1:0;
-
-                `AND: 
-                    result <= operand_a & operand_b;
-                  
-                `OR: 
-                    result <= operand_a | operand_b;
-                    
-                `XOR: 
-                    result <= operand_a ^ operand_b;
-                 
-                `MVN: 
-                    result <= ~operand_a;
-                    
-                `CMP: 
-                    if (operand_a = operand_b)
-                        result <= 32'd1;
-                    else if (operand_a < operand_b )
-                        result = 32'd2;
-                    else if (operand_a > operand_b)
-                        result = 32'b3;
-             endcase
-             if (result == 0)
-                zero_flag = 1;
-        end
+            `AND: 
+                result <= operand_a & operand_b;
+              
+            `OR: 
+                result <= operand_a | operand_b;
+                
+            `XOR: 
+                result <= operand_a ^ operand_b;
+             
+            `MVN: 
+                result <= ~operand_a;
+                
+            `CMP: 
+                if (operand_a == operand_b)
+                    result <= 32'd1;
+                else if (operand_a < operand_b )
+                    result <= 32'd2;
+                else if (operand_a > operand_b)
+                    result <= 32'd3;
+         endcase
+         if (result == 0)
+            zero_flag = 1;
+    end
 endmodule
-
-

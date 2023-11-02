@@ -62,25 +62,25 @@ module ALU_Testbench;
     #10;
     
     // Test case 5: Bitwise AND
-    operand_a = 0b1100;
-    operand_b = 0b1010;
+    operand_a = 32'b1100;
+    operand_b = 32'b1010;
     alu_control = `AND;
     #10;
     
     // Test case 6: Bitwise OR
-    operand_a = 0b1100;
-    operand_b = 0b1010;
+    operand_a = 32'b1100;
+    operand_b = 32'b1010;
     alu_control = `OR;
     #10;
     
     // Test case 7: Bitwise XOR
-    operand_a = 0b1100;
-    operand_b = 0b1010;
+    operand_a = 32'b1100;
+    operand_b = 32'b1010;
     alu_control = `XOR;
     #10;
     
     // Test case 8: Bitwise NOT
-    operand_a = 0b1100;
+    operand_a = 32'b1100;
     alu_control = `MVN;
     #10;
     
