@@ -10,7 +10,7 @@
 
 
 module ALU(
-    input [31:0] signed operand_a, operand_b,// the signed part needs to be checked
+    input signed [31:0]  operand_a, operand_b,// the signed part needs to be checked
     input [3:0] alu_control,
     output reg [31:0] result,
     output reg zero_flag,
