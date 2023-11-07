@@ -1,3 +1,4 @@
+// Stuff left :setup the special registers such as CPSR ,LR ,etc
 module registers(
     input [4:0] read_reg_num1, read_reg_num2,
     input [4:0] write_reg,
