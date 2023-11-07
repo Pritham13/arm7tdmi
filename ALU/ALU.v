@@ -43,7 +43,6 @@ always @(*)
                         default:
                             result <= acc[31:0];
                     endcase
-
                     overflow_flag <= (acc[32:31] == 2'b01 || acc[32:31] == 2'b10);
                     if (acc[32] == 1'b1)
                         carry_flag = 1;
@@ -53,7 +52,7 @@ always @(*)
             `SUBS:
                     begin
                         result <= operand_a - operand_b;
-                        // overflow_flag = ((operand_a[31] == 1'b0) && (result[31] == 1'b1)) || ((operand_a[31] == 1'b1) && (result[31] == 1'b0)); // Corrected
+                        overflow_flag <= (operand_a ^ operand_b) & (operand_a ^ result);
                         negative_flag <= (result[31] == 1'b1) ? 1'b1 : 1'b0;
                     end
             `AND: 
