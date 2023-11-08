@@ -6,29 +6,22 @@ module MAC (
   output reg overflow_flag,
   output reg negative_flag
 );
-reg sum[32:0];
-always @(in1 or in2 or acc )
+  reg sum[32:0];
+
+  always @(*)
   begin
     sum = acc + (in1 * in2);
     case(sum[32:31])
-        2'b01:
-            result <= {1'b0, {(32-1){1'b1}}};
-        2'b10: 
-            result <= {1'b1, {(32-1){1'b0}}};
-        default:
-            result <= acc[31:0];
+      2'b01:
+        result = {1'b0, {(32-1){1'b1}}};
+      2'b10: 
+        result = {1'b1, {(32-1){1'b0}};
+      default:
+        result = acc[31:0];
     endcase
-    negative_flag <= (result[31] == 1'b1) ? 1'b1 : 1'b0;
-    overflow_flag <= (sum[32:31] == 2'b01 || sum[32:31] == 2'b10);
-     if (sum[32] == 1'b1)
-        carry_flag <= 1;
-    else 
-        carry_flag <= 0;
-    if (result == 0)
-      zero_flag = 1;
-    else
-      zero_flag = 0;
-    
+    negative_flag = (result[31] == 1'b1) ? 1'b1 : 1'b0;
+    overflow_flag = (sum[1:0] == 2'b01 || sum[1:0] == 2'b10);
+    carry_flag = (sum[32] == 1'b1) ? 1'b1 : 1'b0;
+    zero_flag = (result == 32'b0) ? 1'b1 : 1'b0;
   end
-
 endmodule
