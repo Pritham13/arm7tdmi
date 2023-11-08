@@ -2,17 +2,17 @@
 module registers(
     input [4:0] read_reg_num1, read_reg_num2,
     input [4:0] write_reg,
-    input [31:0] write_data,
-    output [31:0] read_data1,read_data2,
+    input signed [31:0] write_data,
+    output signed [31:0] read_data1,read_data2,
     input regwrite,
     input clock,
     input reset
 );
     integer i;
-    reg [31:0] register [36:0];
+    reg [31:0] register [15:0];
     always @(posedge reset) 
     begin
-        for (i=0;i<37;i=i+1)
+        for (i=0;i<16;i=i+1)
             begin
                 register[i] = 32'h0;
             end  
