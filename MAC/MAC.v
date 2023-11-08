@@ -17,10 +17,10 @@ module MAC (
       2'b10:
         result = {1'b1, {(32-1){1'b0}}};
       default:
-        result = acc[31:0];
+        result = sum[31:0];
     endcase
     negative_flag = (result[31] == 1'b1) ? 1'b1 : 1'b0;
-    overflow_flag = (sum[1:0] == 2'b01 || sum[1:0] == 2'b10);
+    overflow_flag = (sum[32:31] == 2'b01 || sum[32:31] == 2'b10);
     carry_flag = (sum[32] == 1'b1) ? 1'b1 : 1'b0;
     zero_flag = (result == 32'b0) ? 1'b1 : 1'b0;
   end

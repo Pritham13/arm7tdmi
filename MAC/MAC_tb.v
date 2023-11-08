@@ -22,7 +22,7 @@ initial
                 in_a = i;
                 in_b = i;
                 acc = 0;
-                #100;
+                #10;
             end
             #10
             for ( i=0;i<10;i=i+1)
