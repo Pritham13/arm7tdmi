@@ -6,16 +6,16 @@ module MAC (
   output reg overflow_flag,
   output reg negative_flag
 );
-  reg sum[32:0];
+  reg [32:0] sum;
 
   always @(*)
   begin
     sum = acc + (in1 * in2);
-    case(sum[32:31])
+    case (sum[32:31])
       2'b01:
         result = {1'b0, {(32-1){1'b1}}};
-      2'b10: 
-        result = {1'b1, {(32-1){1'b0}};
+      2'b10:
+        result = {1'b1, {(32-1){1'b0}}};
       default:
         result = acc[31:0];
     endcase
