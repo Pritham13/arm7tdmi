@@ -17,9 +17,7 @@ module registers(
     begin
         for (i=0;i<16;i=i+1)
             begin
-                register[i] = 32'h0;
-                assign CPSR = 
-                //assign LR = 
+                register[i] = 32'h0; 
             end  
     end
     // The register file will always output the vaules corresponding to read register numbers 
