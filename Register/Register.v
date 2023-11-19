@@ -4,6 +4,10 @@
 module registers(
     input [31:0] read_reg_num1, read_reg_num2,
     input [31:0] write_reg,
+    input zero_flag,
+    input carry_flag,
+    input overflow_flag,
+    input negative_flag,
     input signed [31:0] write_data,
     output signed [31:0] read_data1,read_data2,
     input regwrite,
@@ -15,9 +19,10 @@ module registers(
     reg CPSR, LR
     always @(posedge reset) 
     begin
-        for (i=0;i<16;i=i+1)
+        for (i=0;i<15;i=i+1)
             begin
                 register[i] = 32'h0; 
+                CPSR = {negative_flag,zero_flag,carry_flag,overflow_flag}///temporary needs more contents only the flags are updates for now
             end  
     end
     // The register file will always output the vaules corresponding to read register numbers 
