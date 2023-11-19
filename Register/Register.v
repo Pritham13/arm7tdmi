@@ -8,15 +8,15 @@ module registers(
     input carry_flag,
     input overflow_flag,
     input negative_flag,
-    input signed [31:0] write_data,
-    output signed [31:0] read_data1,read_data2,
+    input  [31:0] write_data,
+    output  [31:0] read_data1,read_data2,
     input regwrite,
     input clock,
     input reset
 );
     integer i;
     reg [31:0] register [15:0];
-    reg CPSR, LR
+    reg CPSR, LR;
     always @(posedge reset) 
     begin
         for (i=0;i<15;i=i+1)
