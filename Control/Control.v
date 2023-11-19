@@ -1,0 +1,5 @@
+module Control (
+    input
+);
+    
+endmodule

@@ -1,4 +1,4 @@
-`include "registers.v"
+`include "register.v"
 `include "ALU.v"
 module DATAPATH(
     input [4:0]read_reg_num1,
@@ -20,7 +20,7 @@ module DATAPATH(
     wire [31:0]write_data;
 
     // Instantiating the register file
-    REG_FILE reg_file_module(
+    registers register_module(
     read_reg_num1,
     read_reg_num2,
     write_reg,

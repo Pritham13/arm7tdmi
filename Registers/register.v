@@ -9,7 +9,7 @@ module registers(
     input reset
 );
     integer i;
-    reg [31:0] register [15:0];
+    reg [31:0] register [0:15];
     always @(posedge reset) 
     begin
         for (i=0;i<16;i=i+1)
