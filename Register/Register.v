@@ -10,7 +10,7 @@ module registers(
     input negative_flag,
     input  [31:0] write_data,
     output  [31:0] read_data1,read_data2,
-    input regwrite,
+    input regwrite,reg_read,
     input clock,
     input reset
 );
