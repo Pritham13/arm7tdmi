@@ -1,6 +1,6 @@
 // Stuff left :setup the special registers such as CPSR ,LR ,etc
-`include ALU
-`include MAC
+//`include ALU
+//`include MAC
 module registers(
     input [31:0] read_reg_num1, read_reg_num2,
     input [31:0] write_reg,

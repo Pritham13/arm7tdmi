@@ -1,5 +1,11 @@
 `timescale 1ns/1ns
 
+`define ASSERT_EQUAL(actual, expected, message) \
+    if (actual !== expected) begin \
+        $display("Assertion failed: %s", message); \
+        $fatal; \
+    end
+
 module registers_tb;
 
   // Parameters
@@ -29,7 +35,7 @@ module registers_tb;
 
   // Clock generation
   always begin
-    #CLOCK_PERIOD / 2 clock = ~clock;
+    #5 clock = ~clock;
   end
 
   // Initial block
@@ -48,26 +54,26 @@ module registers_tb;
     reset = 1;
 
     // Apply reset
-    #CLOCK_PERIOD reset = 0;
+    #5 reset = 0;
 
     // Test case 1: Write data to register
     #CLOCK_PERIOD;
-    assert(uut.read_data1 === 32'h0) else $fatal("Test case 1 failed");
-    assert(uut.read_data2 === 32'h0) else $fatal("Test case 1 failed");
-    assert(uut.CPSR === 4'b0000) else $fatal("Test case 1 failed");
+    `ASSERT_EQUAL(uut.read_data1, 32'h0, "Test case 1 failed: Unexpected read_data1 value");
+    `ASSERT_EQUAL(uut.read_data2, 32'h0, "Test case 1 failed: Unexpected read_data2 value");
+    `ASSERT_EQUAL(uut.CPSR, 4'b0000, "Test case 1 failed: Unexpected CPSR value");
 
     // Test case 2: Write data to register and check read data
     write_reg = 0;
     write_data = 32'hABCDEF01;
     #CLOCK_PERIOD;
-    assert(uut.read_data1 === 32'hABCDEF01) else $fatal("Test case 2 failed");
-    assert(uut.read_data2 === 32'h0) else $fatal("Test case 2 failed");
-    assert(uut.CPSR === 4'b0000) else $fatal("Test case 2 failed");
+    `ASSERT_EQUAL(uut.read_data1, 32'hABCDEF01, "Test case 2 failed: Unexpected read_data1 value");
+    `ASSERT_EQUAL(uut.read_data2, 32'h0, "Test case 2 failed: Unexpected read_data2 value");
+    `ASSERT_EQUAL(uut.CPSR, 4'b0000, "Test case 2 failed: Unexpected CPSR value");
 
     // Add more test cases as needed
 
     $display("All test cases passed!");
-    $stop;
+    $finish;
   end
 
 endmodule
