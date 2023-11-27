@@ -12,10 +12,7 @@ module ALU(
     input signed [31:0] operand_a, operand_b,// the signed part needs to be checked
     input [3:0] alu_control,
     output reg [31:0] result,
-    output reg zero_flag,
-    output reg carry_flag,
-    output reg overflow_flag,
-    output reg negative_flag
+    output reg nzcv
 );
 
 reg [32:0] acc;
@@ -77,5 +74,6 @@ always @(*)
          endcase
          if (result == 0)
             zero_flag = 1;
+        nzcv < = {negative_flag,zero_flag,carry_flag,overflow_flag}
     end
 endmodule
