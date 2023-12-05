@@ -12,7 +12,7 @@ module ALU(
     input signed [31:0] operand_a, operand_b,// the signed part needs to be checked
     input [3:0] alu_control,
     output reg [31:0] result,
-    output reg nzcv
+    output reg [3:0] nzcv
 );
 
 reg [32:0] acc;
