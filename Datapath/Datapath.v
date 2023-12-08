@@ -8,10 +8,7 @@ module DATAPATH(
     input regwrite,
     input clock,
     input reset,
-    output reg zero_flag,
-    output reg carry_flag,
-    output reg overflow_flag,
-    output reg negative_flag
+    output [3:0] nzcv
 );
 
     // Declaring internal wires that carry data
@@ -33,6 +30,6 @@ module DATAPATH(
     );
 
     // Instanting ALU
-    ALU alu_module(read_data1, read_data2, alu_control, write_data, zero_flag,carry_flag,overflow_flag,negative_flag);
+    ALU alu_module(read_data1, read_data2, alu_control, write_data,nzcv);
 	 
 endmodule

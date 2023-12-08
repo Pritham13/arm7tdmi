@@ -3,10 +3,14 @@ module Main_Decoder (
     input [3:0] OP,
     output RegWrite,ALUSrc,MemWrite,ResultSrc,Branch
 )
+//op is bits 25-27
 always @(OP)
     begin
-        case(OP)
-        1'b000://data Processing instructions
+        casex(OP)
+        1'b00x://data Processing instructions
+        1'b101://branching
+        1'b000://multiply
+
 
         endcase
     end

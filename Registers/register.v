@@ -27,11 +27,15 @@ module registers(
     // It is independent of any other signal
     assign read_data1 = register[read_reg_num1];
     assign read_data2 = register[read_reg_num2];
+    always @(posedge clock and nzcv) begin// too be checked
+        if (regwrite)begin
+            CPSR<= nzcv;
+        end
+    end
     always @(posedge clock)
     begin
 
         if (regwrite) begin
-            CPSR <= nzcv;//can put a cpsr update instead of using the normal one
             register[write_reg] <= write_data;
         end     
     end
