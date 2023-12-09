@@ -1,26 +1,141 @@
-module ALU_tb();
-    reg [31:0] a,b;
-    reg [3:0] ALU_control;
-    wire ZERO_flag;
-    wire [31:0] Result;
+module ALU_tb;
+  reg signed [31:0] operand_a, operand_b;
+  reg [3:0] alu_control;
+  reg reset;
+  wire [31:0] result;
+  wire [3:0] nzcv;
+  wire result_writeback, nzcv_writeback;
 
-    ALU alu_module(.operand_a(a),.operand_b(b),.alu_control(ALU_control),.zero_flag(ZERO_flag),.result(Result));
+  ALU myALU (
+    .operand_a(operand_a),
+    .operand_b(operand_b),
+    .alu_control(alu_control),
+    .result(result),
+    .nzcv(nzcv),
+    .reset(reset),
+    .result_writeback(result_writeback),
+    .nzcv_writeback(nzcv_writeback)
+  );
 
+  initial begin
+    // Test Case 0: AND
+    operand_a = 8'b11001100;
+    operand_b = 8'b10101010;
+    alu_control = `AND;
+    reset = 0;
+    #10;
 
-    initial
-        begin
-            $dumpfile("alu_output.vcd");
-            $dumpvars(0,ALU_tb);
-        end
-    initial
-        begin
-            a = 23; b = 42;  ALU_control = 4'b0000;
-        #20 a = 23; b = 42;  ALU_control = 4'b0001;
-        #20 a = 23; b = 42;  ALU_control = 4'b0010;
-        #20 a = 23; b = 42;  ALU_control = 4'b0011;
-        #20 a = 23; b = 42;  ALU_control = 4'b0100;
-        #20 a = 42; b = 23;  ALU_control = 4'b0110;
-        end
-    initial
-        #150 $finish;
+    // Test Case 1: EOR
+    operand_a = 8'b11001100;
+    operand_b = 8'b10101010;
+    alu_control = `EOR;
+    reset = 0;
+    #10;
+    
+    // Test Case 2: SUB
+    operand_a = 20;
+    operand_b = 15;
+    alu_control = `SUB;
+    reset = 0;
+    #10;
+    
+    // Test Case 3: RSB
+    operand_a = 5;
+    operand_b = 10;
+    alu_control = `RSB;
+    reset = 0;
+    #10;
+    
+    // Test Case 4: ADD
+    operand_a = 5;
+    operand_b = 3;
+    alu_control = `ADD;
+    reset = 0;
+    #10;
+
+    // Test Case 5: ADC
+    operand_a = 10;
+    operand_b = 15;
+    alu_control = `ADC;
+    reset = 0;
+    #10;
+
+    // Test Case 6: SBC
+    operand_a = 15;
+    operand_b = 8;
+    alu_control = `SBC;
+    reset = 0;
+    #10;
+
+   // Test Case 7: RSC
+    operand_a = 20;
+    operand_b = 15;
+    alu_control = `RSC;
+    reset = 0;
+    #10;
+
+    // Test Case 8: TST
+    operand_a = 8'b11001100;
+    operand_b = 8'b10101010;
+    alu_control = `TST;
+    reset = 0;
+    #10;
+
+    // Test Case 9: TEQ
+    operand_a = 8'b11001100;
+    operand_b = 8'b10101010;
+    alu_control = `TEQ;
+    reset = 0;
+    #10;
+
+    // Test Case 10: CMP
+    operand_a = 10;
+    operand_b = 5;
+    alu_control = `CMP;
+    reset = 0;
+    #10;
+
+    // Test Case 11: CMN
+    operand_a = 10;
+    operand_b = 5;
+    alu_control = `CMN;
+    reset = 0;
+    #10;
+
+    // Test Case 12: ORR
+    operand_a = 8'b11001100;
+    operand_b = 8'b10101010;
+    alu_control = `ORR;
+    reset = 0;
+    #10;
+
+    // Test Case 13: MOV
+    operand_a = 8'b11001100;
+    operand_b = 8'b10101010;
+    alu_control = `MOV;
+    reset = 0;
+    #10;
+
+    // Test Case 14: BIC
+    operand_a = 8'b11001100;
+    operand_b = 8'b10101010;
+    alu_control = `BIC;
+    reset = 0;
+    #10;
+
+    // Test Case 15: MVN
+    operand_a = 8'b11001100;
+    operand_b = 8'b10101010;
+    alu_control = `MVN;
+    reset = 0;
+    #10;
+
+    $stop;
+  end
+
+  initial begin 
+    $dumpfile("ALU.vcd");
+    $dumpvars;
+  end 
+
 endmodule
