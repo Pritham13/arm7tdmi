@@ -1,3 +1,4 @@
+////////////stuff left : CPSR updation variable and result writeback variable 
 `define AND 4'd0
 `define EOR 4'd1 //same as XOR
 `define SUB 4'd2
@@ -12,7 +13,7 @@
 `define CMN 4'd11
 `define ORR 4'd12
 `define MOV 4'd13
-`define BIC 4'd14//ToDo
+`define BIC 4'd14
 `define MVN 4'd15
 module ALU(
     input signed [31:0] operand_a, operand_b,// the signed part needs to be checked
@@ -20,7 +21,8 @@ module ALU(
     output reg [31:0] result,
     output reg [3:0] nzcv,
     input reset,
-    output reg reg write_reg,
+    output reg result_writeback,
+    output reg nzcv_writeback,
 );
 
 reg [32:0] acc,temp;
