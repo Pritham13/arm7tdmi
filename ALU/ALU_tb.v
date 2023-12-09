@@ -1,95 +1,141 @@
-`define ADD 4'b0000  // 0b0000 represents addition
-`define SUB 4'b0001  // 0b0001 represents subtraction
-`define ADDS 4'b0010  // 0b0010 represents add with carry flag
-`define SUBS 4'b0011  // 0b0011 represents subtraction with negative flag
-`define CMP 4'b0100 // 0b0100 represents comparison
-`define AND 4'b0111  // 0b0111 represents bitwise AND
-`define OR 4'b1000  // 0b1000 represents bitwise OR
-`define XOR 4'b1001  // 0b1001 represents bitwise XOR
-`define MVN 4'b1010  // 0b1010 represents bitwise NOT
-
-module ALU_Testbench;
-
-  reg [31:0] operand_a;
-  reg [31:0] operand_b;
+module ALU_tb;
+  reg signed [31:0] operand_a, operand_b;
   reg [3:0] alu_control;
-  
+  reg reset;
   wire [31:0] result;
-  wire zero_flag;
-  wire carry_flag;
-  wire overflow_flag;
-  wire negative_flag;
+  wire [3:0] nzcv;
+  wire result_writeback, nzcv_writeback;
 
-  // Instantiate the ALU module
-  ALU uut (
+  ALU myALU (
     .operand_a(operand_a),
     .operand_b(operand_b),
     .alu_control(alu_control),
     .result(result),
-    .zero_flag(zero_flag),
-    .carry_flag(carry_flag),
-    .overflow_flag(overflow_flag),
-    .negative_flag(negative_flag)
+    .nzcv(nzcv),
+    .reset(reset),
+    .result_writeback(result_writeback),
+    .nzcv_writeback(nzcv_writeback)
   );
 
-  // Initialize signals
   initial begin
-    $dumpfile("ALU_Testbench.vcd");
-    $dumpvars(0, ALU_Testbench);
+    // Test Case 0: AND
+    operand_a = 8'b11001100;
+    operand_b = 8'b10101010;
+    alu_control = `AND;
+    reset = 0;
+    #10;
 
-    // Test case 1: Addition
-    operand_a = 10;
-    operand_b = 20;
-    alu_control = `ADD;
+    // Test Case 1: EOR
+    operand_a = 8'b11001100;
+    operand_b = 8'b10101010;
+    alu_control = `EOR;
+    reset = 0;
     #10;
     
-    // Test case 2: Subtraction
-    operand_a = 30;
+    // Test Case 2: SUB
+    operand_a = 20;
     operand_b = 15;
     alu_control = `SUB;
+    reset = 0;
+    #10;
+    
+    // Test Case 3: RSB
+    operand_a = 5;
+    operand_b = 10;
+    alu_control = `RSB;
+    reset = 0;
+    #10;
+    
+    // Test Case 4: ADD
+    operand_a = 5;
+    operand_b = 3;
+    alu_control = `ADD;
+    reset = 0;
     #10;
 
-    // Test case 3: Addition with carry flag
+    // Test Case 5: ADC
     operand_a = 10;
-    operand_b = 20;
-    alu_control = `ADDS;
+    operand_b = 15;
+    alu_control = `ADC;
+    reset = 0;
     #10;
 
-    // Test case 4: Subtraction with negative flag
-    operand_a = -10;
+    // Test Case 6: SBC
+    operand_a = 15;
+    operand_b = 8;
+    alu_control = `SBC;
+    reset = 0;
+    #10;
+
+   // Test Case 7: RSC
+    operand_a = 20;
+    operand_b = 15;
+    alu_control = `RSC;
+    reset = 0;
+    #10;
+
+    // Test Case 8: TST
+    operand_a = 8'b11001100;
+    operand_b = 8'b10101010;
+    alu_control = `TST;
+    reset = 0;
+    #10;
+
+    // Test Case 9: TEQ
+    operand_a = 8'b11001100;
+    operand_b = 8'b10101010;
+    alu_control = `TEQ;
+    reset = 0;
+    #10;
+
+    // Test Case 10: CMP
+    operand_a = 10;
     operand_b = 5;
-    alu_control = `SUBS;
-    #10;
-    
-    // Test case 5: Bitwise AND
-    operand_a = 32'b1100;
-    operand_b = 32'b1010;
-    alu_control = `AND;
-    #10;
-    
-    // Test case 6: Bitwise OR
-    operand_a = 32'b1100;
-    operand_b = 32'b1010;
-    alu_control = `OR;
-    #10;
-    
-    // Test case 7: Bitwise XOR
-    operand_a = 32'b1100;
-    operand_b = 32'b1010;
-    alu_control = `XOR;
-    #10;
-    
-    // Test case 8: Bitwise NOT
-    operand_a = 32'b1100;
-    alu_control = `MVN;
-    #10;
-    
-    // Test case 9: Comparison
-    operand_a = 10;
-    operand_b = 20;
     alu_control = `CMP;
+    reset = 0;
+    #10;
+
+    // Test Case 11: CMN
+    operand_a = 10;
+    operand_b = 5;
+    alu_control = `CMN;
+    reset = 0;
+    #10;
+
+    // Test Case 12: ORR
+    operand_a = 8'b11001100;
+    operand_b = 8'b10101010;
+    alu_control = `ORR;
+    reset = 0;
+    #10;
+
+    // Test Case 13: MOV
+    operand_a = 8'b11001100;
+    operand_b = 8'b10101010;
+    alu_control = `MOV;
+    reset = 0;
+    #10;
+
+    // Test Case 14: BIC
+    operand_a = 8'b11001100;
+    operand_b = 8'b10101010;
+    alu_control = `BIC;
+    reset = 0;
+    #10;
+
+    // Test Case 15: MVN
+    operand_a = 8'b11001100;
+    operand_b = 8'b10101010;
+    alu_control = `MVN;
+    reset = 0;
     #10;
 
     $finish;
   end
+
+  initial begin 
+    $dumpfile("ALU.vcd");
+    $dumpvars;
+  end 
+
 endmodule
