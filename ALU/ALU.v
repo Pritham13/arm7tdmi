@@ -52,7 +52,7 @@ always @(*)
                     carry_flag = (acc[32] == 1'b1);
                  end
             `ADC:begin
-                    acc = operand_a + operand_b;  // Signed arithmetic
+                    acc = operand_a + operand_b+carry_flag;  // Signed arithmetic
                     case(acc[32:31])
                         2'b01:
                             result = {1'b0, {(32-1){1'b1}}};
