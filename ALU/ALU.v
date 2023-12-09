@@ -49,11 +49,11 @@ always @(*)
                             result = acc[31:0];
                     endcase
                     overflow_flag = (acc[32:31] == 2'b01 || acc[32:31] == 2'b10);
-                    carry_flag = (acc[32] == 1'b1)?
+                    carry_flag = (acc[32] == 1'b1)
                  end
             `ADC:begin
                     {carry_flag, result} = operand_a + operand_b+carry_flag ;
-                    zero_flag = (result == 32'd0)? ;
+                    zero_flag = (result == 32'd0) ;
             end
                 
             `SUB:begin
@@ -63,19 +63,19 @@ always @(*)
                  end
             `SBC:begin
                     {carry_flag, result} = operand_a - operand_b - ~carry_flag;
-                    zero_flag = (result == 32'd0)? ;
+                    zero_flag = (result == 32'd0) ;
                  end
             `RSC:begin
                     {carry_flag, result} = operand_b - operand_a - ~carry_flag;
-                    zero_flag = (result == 32'd0)? ;
+                    zero_flag = (result == 32'd0) ;
                  end
             `AND: begin
                     result = operand_a & operand_b;
-                    zero_flag = (result == 32'd0)? ;
+                    zero_flag = (result == 32'd0) ;
                 end
             `BIC: begin
                     result = operand_a & (~operand_b);
-                    zero_flag = (result == 32'd0)? ;
+                    zero_flag = (result == 32'd0) ;
                 end
             `TST: 
                 {negative_flag, zero_flag} = {operand_a[31] & operand_b[31], (operand_a & operand_b) == 0};
@@ -84,19 +84,19 @@ always @(*)
               
             `OOR:begin 
                     result = operand_a | operand_b;
-                    zero_flag = (result == 32'd0)? ;
+                    zero_flag = (result == 32'd0) ;
                 end
             `EOR:begin
                     result = operand_a ^ operand_b;
-                    zero_flag = (result == 32'd0)? ;
+                    zero_flag = (result == 32'd0) ;
                 end
             `MVN:begin
                     result = ~operand_a;
-                    zero_flag = (result == 32'd0)? ;
+                    zero_flag = (result == 32'd0) ;
                 end
             `RSB:begin
                     result = operand_b - operand_a;  
-                    zero_flag = (result == 32'd0)? ;
+                    zero_flag = (result == 32'd0) ;
                 end
             `CMP:{negative_flag, zero_flag, carry_flag, overflow_flag} = {operand_a[31], (operand_a - operand_b == 0), (operand_a >= operand_b), (operand_a[31] & ~operand_b[31] & ((operand_a - operand_b) >> 31))};
 
