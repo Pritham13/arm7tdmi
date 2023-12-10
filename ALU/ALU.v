@@ -33,7 +33,8 @@ always @(*)
             zero_flag = 0;
             carry_flag = 0;
             overflow_flag = 0;
-            negative_flag = 0;    
+            negative_flag = 0;   
+            nzcv  = {negative_flag,zero_flag,carry_flag,overflow_flag}; 
         end
     else begin
 
