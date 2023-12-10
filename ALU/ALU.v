@@ -21,8 +21,7 @@ module ALU(
     output reg [31:0] result,
     output reg [3:0] nzcv,
     input reset,
-    output reg result_writeback,
-    output reg nzcv_writeback
+    output reg result_writeback
 );
 
 reg [32:0] acc,temp;
@@ -51,6 +50,7 @@ always @(*)
                     endcase
                     overflow_flag = (acc[32:31] == 2'b01 || acc[32:31] == 2'b10);
                     carry_flag = (acc[32] == 1'b1);
+                    result_writeback = 1;
                  end
             `ADC:begin
                     acc = operand_a + operand_b+carry_flag;  // Signed arithmetic
@@ -64,53 +64,72 @@ always @(*)
                     endcase
                     overflow_flag = (acc[32:31] == 2'b01 || acc[32:31] == 2'b10);
                     carry_flag = (acc[32] == 1'b1);
+                    result_writeback = 1;
                 end
                 
             `SUB:begin
                     result = operand_a - operand_b;
                     overflow_flag = (operand_a ^ operand_b) & (operand_a ^ result);
                     negative_flag = (result[31] == 1'b1) ? 1'b1 : 1'b0;
+                    result_writeback = 1;
                  end
             `SBC:begin
                     {carry_flag, result} = operand_a - operand_b - ~carry_flag;
                     zero_flag = (result == 32'd0) ;
+                    result_writeback = 1;
                  end
             `RSC:begin
                     {carry_flag, result} = operand_b - operand_a - ~carry_flag;
                     zero_flag = (result == 32'd0) ;
+                    result_writeback = 1;
                  end
             `AND: begin
                     result = operand_a & operand_b;
                     zero_flag = (result == 32'd0) ;
+                    result_writeback = 1;
                 end
             `BIC: begin
                     result = operand_a & (~operand_b);
                     zero_flag = (result == 32'd0) ;
+                    result_writeback = 1;
                 end
-            `TST: 
-                {negative_flag, zero_flag} = {operand_a[31] & operand_b[31], (operand_a & operand_b) == 0};
-            `TEQ:
-                {negative_flag, zero_flag} = {operand_a[31] ^ operand_b[31], (operand_a ^ operand_b) == 0};
-              
+            `TST: begin
+                    {negative_flag, zero_flag} = {operand_a[31] & operand_b[31], (operand_a & operand_b) == 0};
+                    result_writeback = 0;
+                end
+            `TEQ: begin
+                    {negative_flag, zero_flag} = {operand_a[31] ^ operand_b[31], (operand_a ^ operand_b) == 0};
+                    result_writeback = 0;
+                end
             `ORR:begin 
                     result = operand_a | operand_b;
                     zero_flag = (result == 32'd0) ;
+                    result_writeback = 1;
                 end
             `EOR:begin
                     result = operand_a ^ operand_b;
-                    zero_flag = (result == 32'd0) ;
+                    zero_flag = (result == 32'd0) ;\
+                    result_writeback = 1;
                 end
             `MVN:begin
                     result = ~operand_a;
                     zero_flag = (result == 32'd0) ;
+                    result_writeback = 1;
                 end
             `RSB:begin
                     result = operand_b - operand_a;  
                     zero_flag = (result == 32'd0) ;
+                    result_writeback = 1;
                 end
-            `CMP:{negative_flag, zero_flag, carry_flag, overflow_flag} = {operand_a[31], (operand_a - operand_b == 0), (operand_a >= operand_b), (operand_a[31] & ~operand_b[31] & ((operand_a - operand_b) >> 31))};
+            `CMP:begin
+                    {negative_flag, zero_flag, carry_flag, overflow_flag} = {operand_a[31], (operand_a - operand_b == 0), (operand_a >= operand_b), (operand_a[31] & ~operand_b[31] & ((operand_a - operand_b) >> 31))};
+                    result_writeback = 1;
+                end
 
-            `CMN:{negative_flag, zero_flag, carry_flag, overflow_flag} = {operand_a[31], (operand_a + operand_b == 0), (operand_a + operand_b < operand_a), (operand_a[31] & operand_b[31] & ~((operand_a + operand_b) >> 31))};
+            `CMN: begin
+                    {negative_flag, zero_flag, carry_flag, overflow_flag} = {operand_a[31], (operand_a + operand_b == 0), (operand_a + operand_b < operand_a), (operand_a[31] & operand_b[31] & ~((operand_a + operand_b) >> 31))};
+                    result_writeback = 1;
+                end
          endcase
 
         nzcv  = {negative_flag,zero_flag,carry_flag,overflow_flag};
