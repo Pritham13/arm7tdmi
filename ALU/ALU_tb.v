@@ -1,3 +1,20 @@
+`include "ALU.v"
+`define AND 4'd0
+`define EOR 4'd1 //same as XOR
+`define SUB 4'd2
+`define RSB 4'd3 //Reverse subtraction
+`define ADD 4'd4
+`define ADC 4'd5
+`define SBC 4'd6
+`define RSC 4'd7
+`define TST 4'd8 
+`define TEQ 4'd9
+`define CMP 4'd10
+`define CMN 4'd11
+`define ORR 4'd12
+`define MOV 4'd13
+`define BIC 4'd14
+`define MVN 4'd15
 module ALU_tb;
   reg signed [31:0] operand_a, operand_b;
   reg [3:0] alu_control;

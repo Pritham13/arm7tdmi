@@ -1,0 +1,173 @@
+$date
+	Sun Dec 10 18:36:42 2023
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module ALU_tb $end
+$var wire 1 ! result_writeback $end
+$var wire 32 " result [31:0] $end
+$var wire 1 # nzcv_writeback $end
+$var wire 4 $ nzcv [3:0] $end
+$var reg 4 % alu_control [3:0] $end
+$var reg 32 & operand_a [31:0] $end
+$var reg 32 ' operand_b [31:0] $end
+$var reg 1 ( reset $end
+$scope module myALU $end
+$var wire 4 ) alu_control [3:0] $end
+$var wire 32 * operand_a [31:0] $end
+$var wire 32 + operand_b [31:0] $end
+$var wire 1 ( reset $end
+$var reg 33 , acc [32:0] $end
+$var reg 1 - carry_flag $end
+$var reg 1 . negative_flag $end
+$var reg 4 / nzcv [3:0] $end
+$var reg 1 # nzcv_writeback $end
+$var reg 1 0 overflow_flag $end
+$var reg 32 1 result [31:0] $end
+$var reg 1 ! result_writeback $end
+$var reg 1 2 zero_flag $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
+#0
+$dumpvars
+02
+b10001000 1
+x0
+bx0xx /
+x.
+x-
+bx ,
+b10101010 +
+b11001100 *
+b0 )
+0(
+b10101010 '
+b11001100 &
+b0 %
+bx0xx $
+x#
+b10001000 "
+x!
+$end
+#10
+b1100110 "
+b1100110 1
+b1 %
+b1 )
+#20
+b0x1 $
+b0x1 /
+0.
+10
+b101 "
+b101 1
+b10 %
+b10 )
+b1111 '
+b1111 +
+b10100 &
+b10100 *
+#30
+b11 %
+b11 )
+b1010 '
+b1010 +
+b101 &
+b101 *
+#40
+0-
+b1000 ,
+b0 $
+b0 /
+00
+b1000 "
+b1000 1
+b100 %
+b100 )
+b11 '
+b11 +
+#50
+b11001 "
+b11001 1
+b11001 ,
+b101 %
+b101 )
+b1111 '
+b1111 +
+b1010 &
+b1010 *
+#60
+b1000 "
+b1000 1
+b110 %
+b110 )
+b1000 '
+b1000 +
+b1111 &
+b1111 *
+#70
+b10 $
+b10 /
+1-
+b11111111111111111111111111111100 "
+b11111111111111111111111111111100 1
+b111 %
+b111 )
+b1111 '
+b1111 +
+b10100 &
+b10100 *
+#80
+b1000 %
+b1000 )
+b10101010 '
+b10101010 +
+b11001100 &
+b11001100 *
+#90
+b1001 %
+b1001 )
+#100
+b0 $
+b0 /
+0-
+b1010 %
+b1010 )
+b101 '
+b101 +
+b1010 &
+b1010 *
+#110
+b1011 %
+b1011 )
+#120
+b11101110 "
+b11101110 1
+b1100 %
+b1100 )
+b10101010 '
+b10101010 +
+b11001100 &
+b11001100 *
+#130
+b1101 %
+b1101 )
+#140
+b1000100 "
+b1000100 1
+b1110 %
+b1110 )
+#150
+b11111111111111111111111100110011 "
+b11111111111111111111111100110011 1
+b1111 %
+b1111 )
+#160
