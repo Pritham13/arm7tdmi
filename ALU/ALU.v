@@ -29,6 +29,8 @@ reg carry_flag,overflow_flag,negative_flag,zero_flag;
 always @(*)
     if(reset)
         begin
+            result_writeback = 0;
+            result = 0;
             zero_flag = 0;
             carry_flag = 0;
             overflow_flag = 0;
@@ -108,7 +110,7 @@ always @(*)
                 end
             `EOR:begin
                     result = operand_a ^ operand_b;
-                    zero_flag = (result == 32'd0) ;\
+                    zero_flag = (result == 32'd0) ;
                     result_writeback = 1;
                 end
             `MVN:begin

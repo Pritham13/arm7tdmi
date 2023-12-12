@@ -1,4 +1,4 @@
-`include "ALU.v"
+// `include "ALU.v"
 // Macros for ALU control signals
 `define AND 4'd0
 `define EOR 4'd1 // same as XOR
@@ -25,7 +25,7 @@ module ALU_tb;
   reg reset;
   wire [31:0] result;
   wire [3:0] nzcv;
-  wire result_writeback, nzcv_writeback;
+  wire result_writeback;
 
   // Instantiate the ALU module
   ALU uut(
@@ -35,8 +35,7 @@ module ALU_tb;
     .result(result),
     .nzcv(nzcv),
     .reset(reset),
-    .result_writeback(result_writeback),
-    .nzcv_writeback(nzcv_writeback)
+    .result_writeback(result_writeback)
   );
 
   // Initial block for stimulus
