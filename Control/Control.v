@@ -4,7 +4,7 @@ module Control(input [31:0] instruction,
   input [31:0] current_PC,
   output reg [31:0] new_PC,
   output reg branch_taken);
-  
+  //hgbn 
   wire opcode = instruction[24:21];
   reg [23:0]branch_offset = {instruction [23:0]}
       // Sign-extend the offset to 32 bits
