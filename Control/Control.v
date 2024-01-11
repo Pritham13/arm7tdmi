@@ -6,7 +6,7 @@ module Control (
 always @ (*)//to be changed later
 begin
     case (instruction[27:25])
-        3'b001:ALUop = instruction;
+        3'b001:ALUop = instructio;
         3'b101:Branch_op = instruction[23:0];
         3'b000:multiply_op = instruction;
     endcase
