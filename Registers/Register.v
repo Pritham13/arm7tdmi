@@ -1,6 +1,6 @@
 // Stuff left :setup the special registers such as CPSR ,LR ,etc
 module registers(
-    input write_en, read_en,
+    input write_read_en,
     input [3:0]read_reg1, read_reg2,
     input [31:0] write_reg, write_data,
     input zero_flag,carry_flag, overflow_flag, negative_flag,
@@ -8,7 +8,7 @@ module registers(
     output reg [31:0] read_data1,read_data2,
 );
     integer i;
-    reg [31:0] register [15:0];
+    reg [3:0] register [15:0];
     reg CPSR, LR;
     always @(posedge reset) 
     begin
