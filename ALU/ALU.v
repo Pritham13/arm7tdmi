@@ -1,4 +1,5 @@
-////////////stuff left : CPSR updation variable and result writeback variable 
+////////////stuff left : CPSR updation variable and result wriack variable 
+//decide if its supposed to be asynchronous or synchronous reset -- currently put as synchronous
 `define AND 4'd0
 `define EOR 4'd1 //same as XOR
 `define SUB 4'd2
@@ -26,7 +27,7 @@ module ALU(
 
 reg [32:0] acc,temp;
 reg carry_flag,overflow_flag,negative_flag,zero_flag;
-always @(*)
+always @(reset,operand_a,operand_b,alu_control,reset)
     if(reset)
         begin
             result_writeback = 0;
