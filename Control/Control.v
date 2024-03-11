@@ -3,7 +3,7 @@ module Control (
     output reg [31:0]ALUop,multiply_op,
     output reg [23:0]Branch_op
 );
-always @ (*)//to be changed later
+always @ (instruction)//to be changed later
 begin
     case (instruction[27:25])
         3'b001:ALUop = instruction;

@@ -6,7 +6,7 @@ module MAC (
 );
   reg [32:0] sum;
 
-  always @(*)
+  always @(posedge reset,in1,in2,acc)
   if (reset)begin
         negative_flag = 1'b0;
         overflow_flag = 1'b0;
